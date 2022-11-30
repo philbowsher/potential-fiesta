@@ -7,7 +7,7 @@ editor: visual
 1.  11/30/2022 Data SAS
 
 ```{r}
-
+library(tidyverse)
 library(haven)
 adae <- read_sas("https://github.com/elong0527/r4csr/raw/master/data-adam/adae.sas7bdat", 
     NULL)
@@ -17,9 +17,17 @@ adae
 
 2.  Viz
 
+`
+```{r}
+
+adae_sev <- adae %>%
+ filter(AESEV %in% "SEVERE")
+
+```
+
 ```{r}
 library(ggplot2)
-ggplot(adae) +
+ggplot(adae_sev) +
   aes(x = AESEV, y = AGE, fill = SEX) +
   geom_col() +
   scale_fill_hue(direction = 1) +
@@ -33,7 +41,7 @@ ggplot(adae) +
 library(plotly)
 library(ggplot2)
 
-dv1 <- ggplot(adae) +
+dv1 <- ggplot(adae_sev) +
   aes(x = AESEV, y = AGE, fill = SEX) +
   geom_col() +
   scale_fill_hue(direction = 1) +
